@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package logica;
 
 import com.mysql.jdbc.Connection;
@@ -31,7 +25,6 @@ public class RegistrarCargo {
         } catch (SQLException e) {  
             
         } 
-		GUI.consultarPersona.nom=GUI.consultarPersona.pA=GUI.consultarPersona.sA=GUI.consultarPersona.ced=null;
 	}
     
 }
