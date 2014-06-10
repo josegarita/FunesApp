@@ -1,3 +1,9 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package logica;
 
 import com.mysql.jdbc.Connection;
@@ -10,22 +16,22 @@ import java.sql.SQLException;
  *
  * @author JoseGarita
  */
-public class RegistrarCargo {
+public class logicaRegistrarCargo {
     
-    public static void regisrtarCargo(String pNombre) throws ClassNotFoundException{
+    public static void registarCargo(String pNombre) throws ClassNotFoundException{
         try {  
-	            Class.forName("com.mysql.jdbc.Driver");
-	            Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=root&password=sqlbases");
-	            PreparedStatement pstat = (PreparedStatement) connection.prepareStatement("CALL insertarCargo(?)");
-	            pstat.setString(1,pNombre);
-	            ResultSet rs = pstat.executeQuery();  
-	            rs.close();  
-	            pstat.close();  
-        }
-        catch(SQLException | ClassNotFoundException ex){
-		    System.out.println("SQLException: " + ex.getMessage());
-		    System.out.println("SQLState: " + ((SQLException) ex).getSQLState());
-		    System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=root&password=sqlbases");
+            PreparedStatement pstat = (PreparedStatement) connection.prepareStatement("CALL insertarcargo(?)");
+            pstat.setString(1,pNombre);
+            ResultSet rs = pstat.executeQuery();  
+            
+            rs.close();  
+            pstat.close();  
+        } catch (SQLException e) {  
+            
+        } 
+		
 	}
     
 }
