@@ -27,7 +27,7 @@ public class logicaRegistrarPersona {
 		}
 	}
 	
-	public static boolean registrar(String cedula, String nombre, String apellido, String sApellido, int genero, String fechaNacimiento, String cargo, String lugarTrabajo){
+	public static boolean registrar(String cedula, String nombre, String apellido, String sApellido, int genero, String fechaNacimiento, String cargo, String lugarTrabajo, String categoria){
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
@@ -41,6 +41,7 @@ public class logicaRegistrarPersona {
 			pstat.setInt(7,3);
 			pstat.executeQuery();
                         registrarInstitucionCargo(cargo, lugarTrabajo, cedula);
+                        registrarCategoriaPersona(categoria, cedula);
 			return true;
 		}
 		catch(SQLException | ClassNotFoundException ex){
@@ -82,4 +83,35 @@ public class logicaRegistrarPersona {
 		    System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
 		}
         }
+
+        public static void registrarCategoriaPersona(String categoria, String cedulaPersona){
+            String idCategoria, idPersona;
+                try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
+			PreparedStatement pstat = (PreparedStatement) connection.prepareStatement("CALL Id_Categoria(?)");
+			pstat.setString(1,categoria);
+                        ResultSet rs=pstat.executeQuery();
+                        rs.next();
+                        idCategoria=rs.getString("idCategoria");
+                        
+                        
+                        pstat = (PreparedStatement) connection.prepareStatement("CALL Id_Persona(?)");
+                        pstat.setString(1,cedulaPersona);
+                        rs=pstat.executeQuery();
+                        rs.next();
+                        idPersona=rs.getString("idPersonaFisica");
+                        
+                        pstat = (PreparedStatement) connection.prepareStatement("CALL insertarCategoriaPorPersonaFisica(?,?)");
+                        pstat.setString(1,idPersona);
+                        pstat.setString(2,idCategoria);
+                        pstat.executeQuery();                        		
+		}
+		catch(SQLException | ClassNotFoundException ex){
+                    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ((SQLException) ex).getSQLState());
+		    System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
+		}
+        }
+        
 }
