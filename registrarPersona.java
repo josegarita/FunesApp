@@ -273,7 +273,7 @@ public class registrarPersona {
 					if(rdbtnFemenino.isSelected())
 						genero=2;
 					
-					if(logica.logicaRegistrarPersona.registrar(textFieldCedula.getText(), textFieldNombre.getText(), txtFieldApellido.getText(), textFieldSegApellido.getText(), genero, fecha,(String)comboBoxCargo.getSelectedItem(),(String)comboBoxInstitucion.getSelectedItem()))
+					if(logica.logicaRegistrarPersona.registrar(textFieldCedula.getText(), textFieldNombre.getText(), txtFieldApellido.getText(), textFieldSegApellido.getText(), genero, fecha,(String)comboBoxCargo.getSelectedItem(),(String)comboBoxInstitucion.getSelectedItem(),(String)comboBoxCategoria.getSelectedItem()))
 						JOptionPane.showMessageDialog(null, "Persona registrada en la base de datos","Correcto",JOptionPane.INFORMATION_MESSAGE);
 					break;
 				}
