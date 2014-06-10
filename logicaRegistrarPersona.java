@@ -40,6 +40,7 @@ public class logicaRegistrarPersona {
 			pstat.setString(6,Integer.toString(genero));
 			pstat.setInt(7,3);
 			pstat.executeQuery();
+                        registrarInstitucionCargo(cargo, lugarTrabajo, cedula);
 			return true;
 		}
 		catch(SQLException | ClassNotFoundException ex){
@@ -51,6 +52,34 @@ public class logicaRegistrarPersona {
 	}
 
         public static void registrarInstitucionCargo(String cargo, String institucion, String cedulaPersona){
-            
+                String idInstitucion, idCargo;
+                try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
+			PreparedStatement pstat = (PreparedStatement) connection.prepareStatement("CALL Id_Institucion(?)");
+			pstat.setString(1,institucion);
+                        ResultSet rs=pstat.executeQuery();
+                        rs.next();
+                        idInstitucion=rs.getString("Id_institucion");
+                        
+                        pstat = (PreparedStatement) connection.prepareStatement("CALL ID_cargo(?)");
+			pstat.setString(1,cargo);
+                        rs=pstat.executeQuery();
+                        rs.next();
+                        idCargo=rs.getString("idCargo");
+                        
+                        pstat = (PreparedStatement) connection.prepareStatement("CALL insertarInstitucionLabora(?,?,?,?)");
+                        pstat.setString(1,idInstitucion);
+                        pstat.setString(2,null);
+                        pstat.setString(3,null);
+                        pstat.setString(4,idCargo);
+                        pstat.executeQuery();
+                        		
+		}
+		catch(SQLException | ClassNotFoundException ex){
+                    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ((SQLException) ex).getSQLState());
+		    System.out.println("VendorError: " + ((SQLException) ex).getErrorCode());
+		}
         }
 }
