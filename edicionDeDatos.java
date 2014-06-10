@@ -46,10 +46,11 @@ public class edicionDatos extends javax.swing.JFrame {
         btnSegundoApellido = new javax.swing.JRadioButton();
         DatosIngresotext = new javax.swing.JTextField();
         formatoFecha = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        formatoGenero = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         idPersonaText = new javax.swing.JTextField();
         indicadorNotas = new javax.swing.JLabel();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,7 +80,7 @@ public class edicionDatos extends javax.swing.JFrame {
 
         formatoFecha.setText("aaaa/dd/mm");
 
-        jLabel1.setText("1-Hombre / 2-Mujer");
+        formatoGenero.setText("1-Hombre / 2-Mujer");
 
         btnEditar.setText("Editar");
         btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,6 +97,13 @@ public class edicionDatos extends javax.swing.JFrame {
         });
 
         indicadorNotas.setText("1-10");
+
+        btnVolver.setText("Volver");
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVolverMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,16 +132,22 @@ public class edicionDatos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGenero)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
+                        .addComponent(formatoGenero))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(formatoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnPrimerApellido, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnVolver)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addContainerGap()
+                .addComponent(btnVolver)
+                .addGap(30, 30, 30)
                 .addComponent(btnFechaNacim)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(formatoFecha)
@@ -147,7 +161,7 @@ public class edicionDatos extends javax.swing.JFrame {
                             .addComponent(btnGenero))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel1))))
+                            .addComponent(formatoGenero))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNombre)
@@ -210,6 +224,11 @@ public class edicionDatos extends javax.swing.JFrame {
                }
     }                                      
 
+    private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        this.dispose(); 
+        lobbyUsuario.main(null);
+    }                                      
+
     /**
      * @param args the command line arguments
      */
@@ -254,10 +273,11 @@ public class edicionDatos extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnNota;
     private javax.swing.JRadioButton btnPrimerApellido;
     private javax.swing.JRadioButton btnSegundoApellido;
+    private javax.swing.JButton btnVolver;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel formatoFecha;
+    private javax.swing.JLabel formatoGenero;
     private javax.swing.JTextField idPersonaText;
     private javax.swing.JLabel indicadorNotas;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration                   
 }
