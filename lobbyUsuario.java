@@ -74,8 +74,12 @@ public class lobbyUsuario {
 		frame.getContentPane().add(btnConCat);
 		
 		JButton btnConPersona = new JButton("Persona");
-		btnConPersona.setBounds(236, 163, 117, 25);
+		btnConPersona.setBounds(236, btnConCat.getY()+30, 117, 25);
 		frame.getContentPane().add(btnConPersona);
+                
+                JButton btEdicion = new JButton("-Editar Datos-");
+		btEdicion.setBounds(236, 163 , 117, 25);
+		frame.getContentPane().add(btEdicion);
 		
 		btnRegCat.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -97,6 +101,14 @@ public class lobbyUsuario {
 				frame.setVisible(false);
 			}
 		});
+                
+                btEdicion.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                       edicionDatos.main(null);
+                       frame.setVisible(false);
+                    }
+                });
 		
 	}
 }
