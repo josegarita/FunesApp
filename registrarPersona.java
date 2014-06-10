@@ -23,6 +23,7 @@ public class registrarPersona {
 	final private static String[] meses = new String[12];
         private JComboBox<String> comboBoxCargo = null;
         private JComboBox<String> comboBoxInstitucion = null;
+        private JComboBox<String> comboBoxCategoria = null;
         
         @SuppressWarnings("rawtypes")
 	public static DefaultComboBoxModel<String> comboBoxModelCargo() throws Exception {  
@@ -98,7 +99,25 @@ public class registrarPersona {
 		});
 	}
 
-
+        public static DefaultComboBoxModel<String> comboBoxModelCategoria() throws Exception {  
+            @SuppressWarnings("unchecked")
+                    DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel();  
+            try {  
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
+                    PreparedStatement ps = (PreparedStatement) connection.prepareStatement("SELECT Nombre FROM Categoria ORDER BY Nombre");  
+                    ResultSet rs = ps.executeQuery();  
+                    while(rs.next()){  
+                        comboBoxModel.addElement((rs.getString("Nombre")));  
+                    }  
+                    rs.close();  
+                    ps.close();  
+            } catch (Exception e) {  
+                throw e;  
+            } 
+            return comboBoxModel;  
+        }
+        
 	public registrarPersona() throws Exception {
 		initialize();
 	}
@@ -107,7 +126,7 @@ public class registrarPersona {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() throws Exception {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 415, 373);
+		frame.setBounds(100, 100, 415, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setTitle("Registro de personas");
@@ -159,7 +178,7 @@ public class registrarPersona {
 		frame.getContentPane().add(comboBoxInstitucion);
                 
                 JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(271, 320, 117, 25);
+		btnRegistrar.setBounds(271, 370, 117, 25);
 		frame.getContentPane().add(btnRegistrar);
 		
 		JButton btnCheck = new JButton("Check");
@@ -216,6 +235,15 @@ public class registrarPersona {
 		JLabel lblCargo = new JLabel("Cargo:");
 		lblCargo.setBounds(28, 283, 70, 15);
 		frame.getContentPane().add(lblCargo);
+                
+                JLabel lblCategoria = new JLabel("Categoría:");
+		lblCategoria.setBounds(28, 328, 75, 15);
+		frame.getContentPane().add(lblCategoria);
+                
+                comboBoxCategoria = new JComboBox();
+		comboBoxCategoria.setModel(comboBoxModelCategoria());
+		comboBoxCategoria.setBounds(185, 328, 114, 19);
+		frame.getContentPane().add(comboBoxCategoria);
 				
 		
 		btnRegistrar.addActionListener(new ActionListener(){
