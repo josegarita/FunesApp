@@ -40,7 +40,7 @@ public class lobbyUsuario {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 260);
+		frame.setBounds(100, 100, 750, 260);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Sesión de "+logica.logicaLobbyUsuario.usuarioActual);
@@ -61,10 +61,18 @@ public class lobbyUsuario {
 		JButton btnPersona = new JButton("Persona");
 		btnPersona.setBounds(35, 163, 117, 25);
 		frame.getContentPane().add(btnPersona);
+                
+                JButton btnBorrado = new JButton("Borrar Nota");
+		btnBorrado.setBounds(585, 124, 130, 25);
+		frame.getContentPane().add(btnBorrado);
 
 		JLabel lblRegistrar = new JLabel("Registrar");
 		lblRegistrar.setBounds(65, 49, 70, 15);
 		frame.getContentPane().add(lblRegistrar);
+                
+                JLabel lblEdicion = new JLabel("Edición");
+		lblEdicion.setBounds(625, 49, 70, 15);
+		frame.getContentPane().add(lblEdicion);
 
 		JLabel lblConsultar = new JLabel("Consultar");
 		lblConsultar.setBounds(257, 49, 70, 15);
@@ -91,7 +99,7 @@ public class lobbyUsuario {
 		frame.getContentPane().add(btnCalifPer);
                 
                 JButton btEdicion = new JButton("Editar Datos");
-		btEdicion.setBounds(135, 205, 130, 25);
+		btEdicion.setBounds(585, 84, 130, 25);
 		frame.getContentPane().add(btEdicion);
                 
                 
@@ -138,6 +146,15 @@ public class lobbyUsuario {
                        frame.setVisible(false);
                     }
                 });
+                
+                btnBorrado.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                       borradoDeNotas.main(null);
+                       frame.setVisible(false);
+                    }
+                });
+                
 
 	}
 }
