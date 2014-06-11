@@ -39,21 +39,31 @@ public class logicaEdicion {
                 pstat.setString(2,pGenero);
             }
               if(pTipo== 3){
-                    pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarNombre(?,?);");
+                    pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarNombre(?,?)");
                     pstat.setString(1,pCedula);
                     pstat.setString(2,pNombre);
               }
                 if(pTipo== 4){
-                    pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarNota(?, ?);");
+                    pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarNota(?, ?)");
                     pstat.setString(1,pCedula);
                     pstat.setString(2,pNota);
                 }
                 if(pTipo== 5){
-                    pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarPrimerApellido(?,?);");
+                    pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarPrimerApellido(?,?)");
                     pstat.setString(1,pCedula);
                     pstat.setString(2, pPrimerAp);
                 }
                 if(pTipo== 6){
+                    pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarSegundoApellido(?,?)");
+                    pstat.setString(1,pCedula);
+                    pstat.setString(2,pSegundoAp);
+                }
+                if(pTipo== 7){
+                    pstat = (PreparedStatement) connection.prepareStatement("CALL `funes`.`actualizarNombrePersJuridica`(?, ?)");
+                    pstat.setString(1,pCedula);
+                    pstat.setString(2,pNombre);
+                }
+                if(pTipo== 8){
                     pstat = (PreparedStatement) connection.prepareStatement("CALL actualizarSegundoApellido(?,?);");
                     pstat.setString(1,pCedula);
                     pstat.setString(2,pSegundoAp);
