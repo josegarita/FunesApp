@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package GUI;
 
@@ -19,13 +15,19 @@ public class edicionDatos extends javax.swing.JFrame {
      */
     public edicionDatos() {
         initComponents();
-        buttonGroup1.add(btnNota);
-        buttonGroup1.add(btnFechaNacim);
-        buttonGroup1.add(btnNota);
-        buttonGroup1.add(btnGenero);
-        buttonGroup1.add(btnNombre);
-        buttonGroup1.add(btnPrimerApellido);
-        buttonGroup1.add(btnSegundoApellido);
+        GrupoDatos.add(btnNota);
+        GrupoDatos.add(btnFechaNacim);
+        GrupoDatos.add(btnNota);
+        GrupoDatos.add(btnGenero);
+        GrupoDatos.add(btnNombre);
+        GrupoDatos.add(btnPrimerApellido);
+        GrupoDatos.add(btnSegundoApellido);
+        GrupoTipPers.add(radPersonaFisica);
+        GrupoTipPers.add(radPersonaJur);
+        btnNota.setEnabled(false);
+        indicadorNotas.setEnabled(false);
+        
+        
     }
 
     /**
@@ -37,7 +39,8 @@ public class edicionDatos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        GrupoDatos = new javax.swing.ButtonGroup();
+        GrupoTipPers = new javax.swing.ButtonGroup();
         btnFechaNacim = new javax.swing.JRadioButton();
         btnGenero = new javax.swing.JRadioButton();
         btnNombre = new javax.swing.JRadioButton();
@@ -51,6 +54,8 @@ public class edicionDatos extends javax.swing.JFrame {
         idPersonaText = new javax.swing.JTextField();
         indicadorNotas = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
+        radPersonaFisica = new javax.swing.JRadioButton();
+        radPersonaJur = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +110,20 @@ public class edicionDatos extends javax.swing.JFrame {
             }
         });
 
+        radPersonaFisica.setText("Persona Fisica");
+        radPersonaFisica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radPersonaFisicaMouseClicked(evt);
+            }
+        });
+
+        radPersonaJur.setText("PersonaJuridica");
+        radPersonaJur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radPersonaJurMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,13 +159,20 @@ public class edicionDatos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
+                .addGap(95, 95, 95)
+                .addComponent(radPersonaFisica)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(radPersonaJur)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVolver)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVolver)
+                    .addComponent(radPersonaFisica)
+                    .addComponent(radPersonaJur))
                 .addGap(30, 30, 30)
                 .addComponent(btnFechaNacim)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,7 +202,7 @@ public class edicionDatos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(btnSegundoApellido)
-                        .addContainerGap(11, Short.MAX_VALUE))
+                        .addContainerGap(14, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEditar)
@@ -200,24 +226,35 @@ public class edicionDatos extends javax.swing.JFrame {
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {                                       
       try{
-          if(btnFechaNacim.isSelected()){// fecha,genero, nom, nota, proap, segap
-           logica.logicaEdicion.editarDatos(1,idPersonaText.getText(), DatosIngresotext.getText(), null, null, null, null, null);
-        }
-        if(btnGenero.isSelected()){
-            logica.logicaEdicion.editarDatos(2,idPersonaText.getText(), null, DatosIngresotext.getText(), null, null, null, null);
-        }
-        if(btnNombre.isSelected()){
-            logica.logicaEdicion.editarDatos(3,idPersonaText.getText(), null, null, DatosIngresotext.getText(), null, null, null);
-        }
-        if(btnNota.isSelected()){
-            logica.logicaEdicion.editarDatos(4,idPersonaText.getText(), null, null,DatosIngresotext.getText(), null, null, null);
-        }
-        if(btnPrimerApellido.isSelected()){
-            logica.logicaEdicion.editarDatos(5,idPersonaText.getText(), null, null, null, DatosIngresotext.getText(), null, null);
-        }
-        if(btnSegundoApellido.isSelected()){
-            logica.logicaEdicion.editarDatos(6,idPersonaText.getText(), null, null, null, null, DatosIngresotext.getText(), null);
-        }}
+          if(radPersonaFisica.isSelected()){
+            if(btnFechaNacim.isSelected()){// fecha,genero, nom, nota, proap, segap
+                logica.logicaEdicion.editarDatos(1,idPersonaText.getText(), DatosIngresotext.getText(), null, null, null, null, null);
+            }
+            if(btnGenero.isSelected()){
+                logica.logicaEdicion.editarDatos(2,idPersonaText.getText(), null, DatosIngresotext.getText(), null, null, null, null);
+            }
+            if(btnNombre.isSelected()){
+                logica.logicaEdicion.editarDatos(3,idPersonaText.getText(), null, null, DatosIngresotext.getText(), null, null, null);
+            }
+            if(btnNota.isSelected()){
+                logica.logicaEdicion.editarDatos(4,idPersonaText.getText(), null, null, null, DatosIngresotext.getText(), null, null);
+            }
+            if(btnPrimerApellido.isSelected()){
+                logica.logicaEdicion.editarDatos(5,idPersonaText.getText(), null, null, null, null, DatosIngresotext.getText(), null);
+            }
+            if(btnSegundoApellido.isSelected()){
+                logica.logicaEdicion.editarDatos(6,idPersonaText.getText(), null, null, null, null,null, DatosIngresotext.getText());
+            }
+              }
+          if(radPersonaJur.isSelected()){
+              if(btnNombre.isSelected()){
+                  logica.logicaEdicion.editarDatos(7,idPersonaText.getText(), null, null, DatosIngresotext.getText(), null,null, null);
+              }
+              if(btnNota.isSelected()){
+                  logica.logicaEdicion.editarDatos(8,idPersonaText.getText(), null, null, null, DatosIngresotext.getText(), null, null);
+              }
+          }
+      }
        catch(ClassNotFoundException | NumberFormatException e){
                
                
@@ -228,6 +265,25 @@ public class edicionDatos extends javax.swing.JFrame {
         this.dispose(); 
         lobbyUsuario.main(null);
     }                                      
+
+    private void radPersonaJurMouseClicked(java.awt.event.MouseEvent evt) {                                           
+        btnPrimerApellido.setEnabled(false);
+        btnSegundoApellido.setEnabled(false);
+        btnFechaNacim.setEnabled(false);// TODO add your handling code here:
+        btnGenero.setEnabled(false);
+        formatoFecha.setEnabled(false);
+        formatoGenero.setEnabled(false);
+        
+    }                                          
+
+    private void radPersonaFisicaMouseClicked(java.awt.event.MouseEvent evt) {                                              
+        btnPrimerApellido.setEnabled(true);
+        btnSegundoApellido.setEnabled(true);
+        btnFechaNacim.setEnabled(true);
+        btnGenero.setEnabled(true);
+        formatoFecha.setEnabled(true);
+        formatoGenero.setEnabled(true);
+    }                                             
 
     /**
      * @param args the command line arguments
@@ -266,6 +322,8 @@ public class edicionDatos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JTextField DatosIngresotext;
+    private javax.swing.ButtonGroup GrupoDatos;
+    private javax.swing.ButtonGroup GrupoTipPers;
     private javax.swing.JButton btnEditar;
     private javax.swing.JRadioButton btnFechaNacim;
     private javax.swing.JRadioButton btnGenero;
@@ -274,10 +332,11 @@ public class edicionDatos extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnPrimerApellido;
     private javax.swing.JRadioButton btnSegundoApellido;
     private javax.swing.JButton btnVolver;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel formatoFecha;
     private javax.swing.JLabel formatoGenero;
     private javax.swing.JTextField idPersonaText;
     private javax.swing.JLabel indicadorNotas;
+    private javax.swing.JRadioButton radPersonaFisica;
+    private javax.swing.JRadioButton radPersonaJur;
     // End of variables declaration                   
 }
