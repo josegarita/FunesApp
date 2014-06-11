@@ -1,0 +1,45 @@
+
+package logica;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author JoseGarita
+ */
+public class logicaBorradoDatos {
+    
+    public static void borrarDatos(int pTipo,String pNomUsuario, String pIdPersonaFisica ,String pIdNota) throws ClassNotFoundException{
+        try {  
+
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=root&password=sqlbases");
+            PreparedStatement pstat= null;
+            ResultSet rs;
+            
+            if(pTipo==1){
+                pstat = (PreparedStatement) connection.prepareStatement("CALL borrarNotaJuridica(?,?,?)");
+            }
+            if (pTipo==2){
+                pstat = (PreparedStatement) connection.prepareStatement("CALL borrarNotaPersFisica(?,?,?)");
+            }
+            
+            pstat.setString(1,pNomUsuario);
+            pstat.setString(2,pIdPersonaFisica);
+            pstat.setString(3,pIdNota);
+            rs = pstat.executeQuery(); 
+            rs.close();  
+            pstat.close();  
+            JOptionPane.showMessageDialog(null, "Correcto", "Borrado Correctamente", 1);
+        } catch (SQLException e) {  
+            JOptionPane.showMessageDialog(null,"Error acontecido por: "+ e.toString(),"Error", 3);
+            
+        } 
+    }
+    
+}
