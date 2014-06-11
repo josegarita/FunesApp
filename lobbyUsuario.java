@@ -40,7 +40,7 @@ public class lobbyUsuario {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 380, 260);
+		frame.setBounds(100, 100, 600, 260);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Sesión de "+logica.logicaLobbyUsuario.usuarioActual);
@@ -69,18 +69,26 @@ public class lobbyUsuario {
 		JLabel lblConsultar = new JLabel("Consultar");
 		lblConsultar.setBounds(257, 49, 70, 15);
 		frame.getContentPane().add(lblConsultar);
+                
+                JLabel lblCalificar = new JLabel("Calificar");
+		lblCalificar.setBounds(451, 49, 70, 15);
+		frame.getContentPane().add(lblCalificar);
 
 		JButton btnConCat = new JButton("Categoría");
 		btnConCat.setBounds(236, 84, 117, 25);
 		frame.getContentPane().add(btnConCat);
 
 		JButton btnConPersona = new JButton("Persona");
-		btnConPersona.setBounds(236, btnConCat.getY()+30, 117, 25);
+		btnConPersona.setBounds(236, 124, 117, 25);
 		frame.getContentPane().add(btnConPersona);
                 
                 JButton btnBusPorCat = new JButton("Por Categoria");
-		btnBusPorCat.setBounds(228, btnConPersona.getY()+30, 135, 25);
+		btnBusPorCat.setBounds(228, 163, 135, 25);
 		frame.getContentPane().add(btnBusPorCat);
+                
+                JButton btnCalifPer = new JButton("Persona");
+		btnCalifPer.setBounds(415, 84, 135, 25);
+		frame.getContentPane().add(btnCalifPer);
                 
                 JButton btEdicion = new JButton("Editar Datos");
 		btEdicion.setBounds(135, 205, 130, 25);
@@ -119,6 +127,14 @@ public class lobbyUsuario {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                        edicionDeDatos.main(null);
+                       frame.setVisible(false);
+                    }
+                });
+                
+                btnCalifPer.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                       calificarPersona.main(null);
                        frame.setVisible(false);
                     }
                 });
