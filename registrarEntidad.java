@@ -1,5 +1,6 @@
 package GUI;
 
+import static GUI.calificarPersona.textArea;
 import java.awt.EventQueue;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,12 +14,25 @@ import javax.swing.JTextField;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class registrarEntidad {
 
 	private JFrame frame;
-	private JTextField textFieldmbreNo;
+	private JTextField textFieldNombre;
 	private JTextField textFieldCedula;
+        private JTextArea textSeñal;
+        private JComboBox<String> cmBxPais;
+        JComboBox<String> cmBxDistrito;
+        JComboBox<String> cmBxProvincia;
+        JComboBox<String> cmBxCantón;
+        JComboBox<?> cmBxCategoria;
 	
 	@SuppressWarnings("rawtypes")
 	public static DefaultComboBoxModel<String> comboBoxModelPais() throws Exception {  
@@ -26,7 +40,7 @@ public class registrarEntidad {
 		DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<String>();  
         try {  
         	Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
+			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=root&password=sqlbases");
             PreparedStatement ps = (PreparedStatement) connection.prepareStatement("SELECT Nombre FROM Pais ORDER BY Nombre");  
             ResultSet rs = ps.executeQuery();  
             while(rs.next()){  
@@ -46,7 +60,7 @@ public class registrarEntidad {
 		DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<String>();  
         try {  
         	Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
+			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=root&password=sqlbases");
             PreparedStatement ps = (PreparedStatement) connection.prepareStatement("SELECT Nombre FROM Canton ORDER BY Nombre");  
             ResultSet rs = ps.executeQuery();  
             while(rs.next()){  
@@ -66,7 +80,7 @@ public class registrarEntidad {
 		DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<String>();  
         try {  
         	Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
+			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=root&password=sqlbases");
             PreparedStatement ps = (PreparedStatement) connection.prepareStatement("SELECT Nombre FROM Provincia ORDER BY Nombre");  
             ResultSet rs = ps.executeQuery();  
             while(rs.next()){  
@@ -86,7 +100,7 @@ public class registrarEntidad {
 		DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<String>();  
         try {  
         	Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
+			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=root&password=sqlbases");
             PreparedStatement ps = (PreparedStatement) connection.prepareStatement("SELECT Nombre FROM Distrito ORDER BY Nombre");  
             ResultSet rs = ps.executeQuery();  
             while(rs.next()){  
@@ -99,26 +113,6 @@ public class registrarEntidad {
         } 
         return comboBoxModel;  
     }  
-        
-        @SuppressWarnings("rawtypes")
-	public static DefaultComboBoxModel<String> comboBoxModelCategoria() throws Exception {  
-        @SuppressWarnings("unchecked")
-		DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel();  
-        try {  
-        	Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/Funes?"+"user=usuario&password=pass");
-            PreparedStatement ps = (PreparedStatement) connection.prepareStatement("SELECT Nombre FROM Categoria ORDER BY Nombre");  
-            ResultSet rs = ps.executeQuery();  
-            while(rs.next()){  
-                comboBoxModel.addElement((rs.getString("Nombre")));  
-            }  
-            rs.close();  
-            ps.close();  
-        } catch (Exception e) {  
-            throw e;  
-        } 
-        return comboBoxModel;  
-    } 
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -147,7 +141,7 @@ public class registrarEntidad {
 	 */
 	private void initialize() throws Exception {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 302, 474);
+		frame.setBounds(100, 100, 302, 574);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -167,22 +161,22 @@ public class registrarEntidad {
 		lblDireccin.setBounds(26, 139, 70, 15);
 		frame.getContentPane().add(lblDireccin);
 		
-		JComboBox<String> cmBxPais = new JComboBox();
+		cmBxPais = new JComboBox<String>();
 		cmBxPais.setModel(comboBoxModelPais());
 		cmBxPais.setBounds(116, 172, 144, 24);
 		frame.getContentPane().add(cmBxPais);
 		
-		JComboBox<String> cmBxDistrito = new JComboBox();
+		cmBxDistrito = new JComboBox<String>();
 		cmBxDistrito.setModel(comboBoxModelDistrito());
 		cmBxDistrito.setBounds(116, 280, 144, 24);
 		frame.getContentPane().add(cmBxDistrito);
 		
-		JComboBox<String> cmBxProvincia = new JComboBox();
+		cmBxProvincia = new JComboBox<String>();
 		cmBxProvincia.setModel(comboBoxModelProvincia());
 		cmBxProvincia.setBounds(117, 208, 143, 24);
 		frame.getContentPane().add(cmBxProvincia);
 		
-		JComboBox<String> cmBxCantón = new JComboBox();
+		cmBxCantón = new JComboBox<String>();
 		cmBxCantón.setModel(comboBoxModelCanton());
 		cmBxCantón.setBounds(116, 244, 144, 24);
 		frame.getContentPane().add(cmBxCantón);
@@ -191,19 +185,18 @@ public class registrarEntidad {
 		lblCategora.setBounds(26, 344, 91, 15);
 		frame.getContentPane().add(lblCategora);
 		
-		JComboBox<String> cmBxCategoria = new JComboBox();
-                cmBxCategoria.setModel(comboBoxModelCategoria());
+		cmBxCategoria = new JComboBox<Object>();
 		cmBxCategoria.setBounds(114, 335, 146, 24);
 		frame.getContentPane().add(cmBxCategoria);
 		
 		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(89, 409, 117, 25);
+		btnRegistrar.setBounds(89, 470, 117, 25);
 		frame.getContentPane().add(btnRegistrar);
 		
-		textFieldmbreNo = new JTextField();
-		textFieldmbreNo.setBounds(153, 51, 114, 19);
-		frame.getContentPane().add(textFieldmbreNo);
-		textFieldmbreNo.setColumns(10);
+		textFieldNombre = new JTextField();
+		textFieldNombre.setBounds(153, 51, 114, 19);
+		frame.getContentPane().add(textFieldNombre);
+		textFieldNombre.setColumns(10);
 		
 		textFieldCedula = new JTextField();
 		textFieldCedula.setBounds(153, 91, 114, 19);
@@ -225,5 +218,49 @@ public class registrarEntidad {
 		JLabel lblDistrito = new JLabel("Distrito");
 		lblDistrito.setBounds(26, 285, 70, 15);
 		frame.getContentPane().add(lblDistrito);
-	}
+                
+                JButton btnVolver = new JButton("Volver");
+		btnVolver.setBounds(89, 505, 117, 25);
+		frame.getContentPane().add(btnVolver);
+                
+                textSeñal = new JTextArea("Inserte aqui la direccion exacta");
+                textSeñal.setBounds(29, 375, 217, 85);
+                JScrollPane sp = new JScrollPane(textSeñal);
+		sp.setLocation(39, 375);
+		sp.setSize(220, 90);
+		frame.getContentPane().add(sp);
+                
+                btnVolver.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				lobbyUsuario.main(null);
+				frame.dispose();
+			}
+		});
+                btnRegistrar.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+                            try {
+                                logica.logicaRegistrarEntidad.registrarEntidad(textFieldNombre.getText()
+                                        ,textFieldCedula.getText(),(String)cmBxPais.getSelectedItem(),(String)cmBxProvincia.getSelectedItem()
+                                        ,(String) cmBxCantón.getSelectedItem(),(String)cmBxDistrito.getSelectedItem(),
+                                        (String)cmBxCategoria.getSelectedItem(), textSeñal.getText());
+                            } catch (ClassNotFoundException ex) {
+                                
+                                JOptionPane.showMessageDialog(null, "Error: "+ ex.toString(), "ERROR", 3);
+                            }
+			}
+		});
+                
+                textSeñal.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    textSeñalMouseClicked(evt);
+                    }
+                });
+                
+        }
+        private void textSeñalMouseClicked(java.awt.event.MouseEvent evt) {                                           
+            textSeñal.setText("");
+    }
 }
